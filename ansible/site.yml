@@ -1,0 +1,31 @@
+- name: time sync for all hosts
+  hosts: all
+  tags: time
+  become: true
+  roles:
+    - role: ntp
+
+- name: Configure target and initiators
+  hosts: iscsi
+  tags: target
+  become: true
+  roles:
+    - role: iscsi-target
+
+- name: Configure cluster
+  tags: web
+  become: true
+  hosts: servers
+  roles:
+    - sedovandrew.nginx
+    - role: iscsi-client
+    - role: pacemaker
+
+- name: create ur FS CLVM
+  tags: web1
+  hosts: server0
+  roles:
+    - role: tune_cluster
+      become: true
+      ignore_errors: true
+      
