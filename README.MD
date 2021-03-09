@@ -21,6 +21,7 @@
 ```
 # terraform init 
 # terraform apply --auto-approve
+# ansible-playbook ./ansible/site.yml
 ```
 И внесением токена провайдера в файле terraform.tfvars
 
